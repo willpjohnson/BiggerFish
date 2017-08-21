@@ -1,0 +1,36 @@
+/*Generic*/
+
+
+/*Game*/
+#game-board {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  display: block;
+}
+
+#game-pieces {
+  height: 50px;
+  width: 440px;
+  margin: 0 auto;
+}
+
+.level-pieces {
+}
+
+#start-button {
+  text-align: center;
+  margin: 15px auto;
+  width: 100px;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  border: 2px solid black;
+}
+
+#start-button:hover {
+  background-color: black;
+  color: white;
+}
