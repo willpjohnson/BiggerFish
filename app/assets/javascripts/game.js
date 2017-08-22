@@ -1,9 +1,20 @@
-const runGame = (ctx, level, position) => {
-  let positions = [{xVal: position[0], yVal: position[1], color: "blue", value: 5, vel: null}];
-  let values = {"blue": 5, "white": 4, "#3d677f": 3, "#b2721e": 2, "#d8ad00": 1};
-  level.forEach( (block) => {
-    positions.push({xVal: block[0], yVal: block[1], color: block[2], value: values[block[2]], vel: null});
+import { values } from 'lodash';
+
+const runGame = (ctx, level) => {
+  // let positions = [{xVal: position[0], yVal: position[1], color: "blue", value: 5, vel: null}];
+  let colorValues = {"blue": 5, "white": 4, "#3d677f": 3, "#b2721e": 2, "#d8ad00": 1};
+  // level.forEach( (block) => {
+  //   positions.push({xVal: block[0], yVal: block[1], color: block[2], value: values[block[2]], vel: null});
+  // });
+  let positions = [];
+  level.preset.forEach( (piece) => {
+    positions.push({xVal: piece.xVal, yVal: piece.yVal, color: piece.color,
+      value: colorValues[piece.color], vel: null});
   });
+  values(level.user).forEach( (piece) => {
+    positions.push({xVal: piece.xVal, yVal: piece.yVal, color: piece.color,
+      value: colorValues[piece.color], vel: null});
+  })
   let gameInterval = setInterval( () => {
     // Reassign Block Coordinates According To Velocities
     positions.forEach( (pos) => {
