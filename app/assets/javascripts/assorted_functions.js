@@ -10,4 +10,12 @@ export const positionMover = (xPos, yPos, ctx, level) => {
   } else {
     return null;
   }
-}
+};
+
+export const drawPiece = (src, ctx, xVal, yVal) => {
+  let img = new Image();
+  img.src = src;
+  img.onload = () => {
+    ctx.drawImage(img, xVal, yVal);
+  }
+};

@@ -1,20 +1,18 @@
 import { values } from 'lodash';
+import { drawPiece } from './assorted_functions';
+import pieces from './piece_objects';
 
 const runGame = (ctx, level) => {
-  // let positions = [{xVal: position[0], yVal: position[1], color: "blue", value: 5, vel: null}];
-  let colorValues = {"blue": 5, "white": 4, "#3d677f": 3, "#b2721e": 2, "#d8ad00": 1};
-  // level.forEach( (block) => {
-  //   positions.push({xVal: block[0], yVal: block[1], color: block[2], value: values[block[2]], vel: null});
-  // });
   let positions = [];
   level.preset.forEach( (piece) => {
-    positions.push({xVal: piece.xVal, yVal: piece.yVal, color: piece.color,
-      value: colorValues[piece.color], vel: null});
+    positions.push({xVal: piece.xVal, yVal: piece.yVal, img: pieces[piece.pieceValue].img,
+      value: piece.pieceValue, vel: null});
   });
   values(level.user).forEach( (piece) => {
-    positions.push({xVal: piece.xVal, yVal: piece.yVal, color: piece.color,
-      value: colorValues[piece.color], vel: null});
+    positions.push({xVal: piece.xVal, yVal: piece.yVal, img: pieces[piece.pieceValue].img,
+      value: piece.pieceValue, vel: null});
   })
+
   let gameInterval = setInterval( () => {
     // Reassign Block Coordinates According To Velocities
     positions.forEach( (pos) => {
@@ -40,15 +38,18 @@ const runGame = (ctx, level) => {
     ctx.fillStyle = '#75aec6';
     ctx.fillRect(0,0,440,440);
     positions.forEach( (pos) => {
-      ctx.fillStyle = pos.color;
-      ctx.fillRect(pos.xVal, pos.yVal, 20, 20);
+      // ctx.fillStyle = pos.color;
+      // ctx.fillRect(pos.xVal, pos.yVal, 20, 20);
+      drawPiece(pos.img, ctx, pos.xVal, pos.yVal);
     });
+    ctx.fillStyle = 'black';
+    ctx.fillRect(level.goal.xVal, level.goal.yVal, 20, 20);
 
     // Set New Velocities If Next To Scary Positions
     positions.forEach( (pos1) => {
       positions.forEach( (pos2) => {
         if (pos1 === pos2) return; // Skip to next iteration if pos1 is pos2
-        if (pos1.value !== pos2.value - 1) return; // Skip to next iteration if pos2 isn't scary to pos1
+        if (pos1.value !== pos2.value - 1) return; // Skip to next iteration unless pos2 is scary to pos1
         if ((pos1.xVal === (pos2.xVal + 20)) && (pos1.yVal === pos2.yVal)) {
           pos1.vel = 'right';
         } else if ((pos1.xVal === (pos2.xVal - 20)) && (pos1.yVal === pos2.yVal)) {
