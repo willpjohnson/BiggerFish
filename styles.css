@@ -1,13 +1,35 @@
 /*Generic*/
+h1 {
+  font-family: 'Seaweed Script', cursive;
+  font-size: 80px;
+  color: white;
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 1);
+  margin: 0 auto;
+  text-align: center;
+}
+
 h2 {
   font-size: 20px;
-  font-weight: 600;
-  border: 1px solid black;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 1);
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 1);
+  margin: 0;
 }
 
 ul {
   list-style: none;
   padding: 0;
+}
+
+body {
+  background-color: #b7666a;
 }
 
 /*Game*/
@@ -22,7 +44,7 @@ ul {
 
 #game-board {
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: 20px;
   display: block;
   border: 3px solid black;
   border-radius: 5px;
@@ -31,7 +53,7 @@ ul {
 #food-chain-div {
   position: absolute;
   top: 50px;
-  left: -190px;
+  left: -170px;
   border: 2px solid black;
   border-radius: 5px;
   width: 140px;
@@ -51,7 +73,7 @@ ul {
 
 #selection-div {
   position: absolute;
-  top: 50px;
+  top: 250px;
   right: -195px;
   border: 2px solid black;
   border-radius: 5px;
@@ -66,9 +88,39 @@ ul {
 }
 
 #selected-piece {
+  border-radius: 3px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+#level-goal-div {
+  position: absolute;
+  top: 50px;
+  right: -195px;
+  border: 2px solid black;
+  border-radius: 5px;
+  height: 150px;
+  width: 170px;
   text-align: center;
-  font-size: 20px;
-  font-weight: 500;
+  background-image: url("app/assets/images/ocean.png");
+}
+
+#level-header {
+  margin-bottom: 0;
+}
+
+#level-goal-piece {
+  margin: 0 auto;
+  margin-top: 20px;
+  height: 24px;
+  width: 24px;
+  border-radius: 3px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.level-goal-piece {
+  margin: 2px;
 }
 
 #game-piece-container {
@@ -76,7 +128,7 @@ ul {
   margin: 0 auto;
   margin-top: 15px;
   border-radius: 3px;
-  border: 2px solid #FA7E79;
+  border: 2px solid black;
   background-color: white;
 }
 

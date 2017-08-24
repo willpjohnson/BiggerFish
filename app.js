@@ -6,12 +6,16 @@ import level1 from './app/assets/javascripts/levels/level1';
 import level2 from './app/assets/javascripts/levels/level2';
 
 document.addEventListener("DOMContentLoaded", () => {
-  let level = merge({}, level2);
-  let selectedPieceKey = null;
-  let board = $("#game-board")[0];
-  let ctx = board.getContext('2d');
-  let gameInterval;
+  let level = merge({}, level2); //Establish Level
+  $("#level-header").html(`Level ${level.levelNum}`); //Add Level Header to Level Div
+  let selectedPieceKey = null; //Establish dummy Selected Piece
+  let board = $("#game-board")[0]; //Find board on index.html
+  let ctx = board.getContext('2d'); //Establish board ctx
+  let selectionCanvas = $("#selected-piece")[0];
+  let selectionCtx = selectionCanvas.getContext('2d');
   drawBoardInitial(ctx, level);
+  $("#level-goal-piece").empty().append(`<img class="level-goal-piece" src=${level.catch.img}>`);
+  let gameInterval; //Establish dummy gameInterval
 
   // Add User Pieces to User Area
   Object.keys(level.user).forEach( (pieceKey) => {
@@ -22,10 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
     e.target.classList.add("on-board");
     selectedPieceKey = e.target.id.substring(11); // Only want the pieceKey section of the li's id
     let piece = level.user[selectedPieceKey];
-    let selectionCanvas = $("#selected-piece")[0];
-    let selectionCtx = selectionCanvas.getContext('2d');
-    selectionCtx.clearRect(0,0,20,20);
-    drawPiece(pieces[piece.pieceValue].img, selectionCtx, 0, 0);
+    selectionCtx.clearRect(0,0,24,24);
+    drawPiece(pieces[piece.pieceValue].img, selectionCtx, 2, 2);
   });
 
   // Add Click Handler to Board
@@ -44,14 +46,53 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   // Add Click Handlers to Buttons
-  const startButton = $("#start-button")[0];
-  startButton.addEventListener("click", () => {
-    runGame(ctx, level, gameInterval);
+  $("#start-button").on("click", () => {
+    $("#start-button").off("click");
+    let goal = [level.goal.xVal, level.goal.yVal];
+    let positions = [];
+    level.preset.forEach( (piece) => {
+      positions.push({xVal: piece.xVal, yVal: piece.yVal, xValPrev: null, yValPrev: null,
+        img: pieces[piece.pieceValue].img,
+        value: piece.pieceValue, vel: null});
+    });
+    values(level.user).forEach( (piece) => {
+      if (piece.xVal) {
+        positions.push({xVal: piece.xVal, yVal: piece.yVal, xValPrev: null, yValPrev: null,
+          img: pieces[piece.pieceValue].img,
+          value: piece.pieceValue, vel: null});
+      }
+    })
+    gameInterval = setInterval( () => {
+      runGame(ctx, level, positions);
+    }, 200);
   });
   const resetButton = $("#reset-button")[0];
+
   resetButton.addEventListener("click", () => {
+    $("#start-button").on("click", () => {
+      $("#start-button").off("click");
+      let goal = [level.goal.xVal, level.goal.yVal];
+      let positions = [];
+      level.preset.forEach( (piece) => {
+        positions.push({xVal: piece.xVal, yVal: piece.yVal, xValPrev: null, yValPrev: null,
+          img: pieces[piece.pieceValue].img,
+          value: piece.pieceValue, vel: null});
+      });
+      values(level.user).forEach( (piece) => {
+        if (piece.xVal) {
+          positions.push({xVal: piece.xVal, yVal: piece.yVal, xValPrev: null, yValPrev: null,
+            img: pieces[piece.pieceValue].img,
+            value: piece.pieceValue, vel: null});
+        }
+      })
+      gameInterval = setInterval( () => {
+        runGame(ctx, level, positions);
+      }, 200);
+    });
+
     clearInterval(gameInterval);
     drawBoardInitial(ctx, level);
+    selectionCtx.clearRect(2,2,20,20);
     $(".on-board").removeClass("on-board");
     values(level.user).forEach( (piece) => {
       piece.xVal = null;

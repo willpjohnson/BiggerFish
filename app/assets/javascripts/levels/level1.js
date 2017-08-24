@@ -6,7 +6,9 @@ const level1 = {
   user: {
     1: {xVal: null, yVal: null, pieceValue: 6, img: "app/assets/images/bluewhale.png"}
   },
-  goal: {xVal: 420, yVal: 200}
+  goal: {xVal: 420, yVal: 200},
+  levelNum: 1,
+  catch: {value: 4, img: "app/assets/images/barracuda.png"}
 }
 
 export default level1;
