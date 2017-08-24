@@ -10,16 +10,33 @@
   <body>
     <div id="board-and-selection-div">
       <canvas id="game-board" height="440" width="440"></canvas>
+      <div id="food-chain-div">
+        <h2>Food Chain</h1>
+        <ul id="food-chain-ul">
+          <li class="food-chain-li"><img src="app/assets/images/bluewhale.png" alt="bluewhale"></li>
+          <li class="food-chain-li"><img src="app/assets/images/food-chain-arrow.png" alt=""></li>
+          <li class="food-chain-li"><img src="app/assets/images/greatwhite.png" alt="greatwhite"></li>
+          <li class="food-chain-li"><img src="app/assets/images/food-chain-arrow.png" alt=""></li>
+          <li class="food-chain-li"><img src="app/assets/images/hammerhead.png" alt="hammerhead"></li>
+          <li class="food-chain-li"><img src="app/assets/images/food-chain-arrow.png" alt=""></li>
+          <li class="food-chain-li"><img src="app/assets/images/barracuda.png" alt="barracuda"></li>
+          <li class="food-chain-li"><img src="app/assets/images/food-chain-arrow.png" alt=""></li>
+          <li class="food-chain-li"><img src="app/assets/images/piranha.png" alt="piranha"></li>
+          <li class="food-chain-li"><img src="app/assets/images/food-chain-arrow.png" alt=""></li>
+          <li class="food-chain-li"><img src="app/assets/images/minnow.png" alt="minnow"></li>
+        </ul>
+      </div>
       <div id="selection-div">
-        <h1>Selected Piece</h1>
+        <h2>Selected Piece</h1>
         <canvas id="selected-piece" height="20" width="20"></canvas>
       </div>
     </div>
-    <ul id="game-pieces">
-
-    </ul>
-    <div>
-      <h1 id="start-button">Start</h1>
+    <div id="game-piece-container">
+      <ul id="game-pieces"></ul>
+    </div>
+    <div id="button-div">
+      <h1 id="start-button" class="button">Start</h1>
+      <h1 id="reset-button" class="button">Reset</h1>
     </div>
   </body>
 </html>

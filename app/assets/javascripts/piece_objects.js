@@ -17,12 +17,12 @@ const pieces = {
   3: {
     name: "Barracuda",
     color: "#2291aa",
-    img: "app/assets/images/bluewhale.png"
+    img: "app/assets/images/barracuda.png"
   },
   2: {
     name: "Piranha",
     color: "#ef7e2d",
-    img: "app/assets/images/bluewhale.png"
+    img: "app/assets/images/piranha.png"
   },
   1: {
     name: "Minnow",

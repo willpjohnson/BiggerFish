@@ -1,26 +1,64 @@
 /*Generic*/
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  border: 1px solid black;
+}
 
+ul {
+  list-style: none;
+  padding: 0;
+}
 
 /*Game*/
 #board-and-selection-div {
-  display: flex;
-  justify-content: space-around;
+  /*display: flex;
+  justify-content: space-around;*/
   /*border: 1px solid black;*/
-  width: 700px;
+  position: relative;
+  width: 440px;
   margin: 0 auto;
 }
 
 #game-board {
+  margin: 0 auto;
   margin-top: 100px;
   display: block;
+  border: 3px solid black;
+  border-radius: 5px;
+}
+
+#food-chain-div {
+  position: absolute;
+  top: 50px;
+  left: -190px;
+  border: 2px solid black;
+  border-radius: 5px;
+  width: 140px;
+  text-align: center;
+  background-image: url("app/assets/images/ocean.png");
+}
+
+#food-chain-ul {
+
+}
+
+.food-chain-li {
+  height: 20px;
+  margin: 0;
+  padding: 0;
 }
 
 #selection-div {
-  margin-top: 220px;
+  position: absolute;
+  top: 50px;
+  right: -195px;
   border: 2px solid black;
   border-radius: 5px;
   height: 130px;
-  width: 220px;
+  width: 170px;
+  text-align: center;
+  background-image: url("app/assets/images/ocean.png");
 }
 
 #selection-div h1 {
@@ -33,17 +71,43 @@
   font-weight: 500;
 }
 
-#game-pieces {
-  height: 50px;
-  width: 440px;
+#game-piece-container {
+  width: 400px;
   margin: 0 auto;
+  margin-top: 15px;
+  border-radius: 3px;
+  border: 2px solid #FA7E79;
+  background-color: white;
+}
+
+#game-pieces {
+  margin: 0 auto;
+  padding: 0;
+  height: 30px;
 }
 
 .level-pieces {
+  display: inline;
   cursor: pointer;
 }
 
-#start-button {
+.level-pieces img {
+  margin: 5px 10px;
+  height: 20px;
+  width: 20px;
+}
+
+.on-board {
+  opacity: 0.5;
+}
+
+#button-div {
+  display: flex;
+  width: 250px;
+  margin: 0 auto;
+}
+
+.button {
   text-align: center;
   margin: 15px auto;
   width: 100px;
@@ -53,7 +117,7 @@
   border: 2px solid black;
 }
 
-#start-button:hover {
+.button:hover {
   background-color: black;
   color: white;
 }

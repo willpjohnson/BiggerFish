@@ -1,33 +1,46 @@
 import { values } from 'lodash';
-import { drawPiece } from './assorted_functions';
+import { drawPiece, drawWater } from './assorted_functions';
 import pieces from './piece_objects';
 
-const runGame = (ctx, level) => {
+const runGame = (ctx, level, gameInterval) => {
+  let goal = [level.goal.xVal, level.goal.yVal];
   let positions = [];
   level.preset.forEach( (piece) => {
-    positions.push({xVal: piece.xVal, yVal: piece.yVal, img: pieces[piece.pieceValue].img,
+    positions.push({xVal: piece.xVal, yVal: piece.yVal, xValPrev: null, yValPrev: null,
+      img: pieces[piece.pieceValue].img,
       value: piece.pieceValue, vel: null});
   });
   values(level.user).forEach( (piece) => {
-    positions.push({xVal: piece.xVal, yVal: piece.yVal, img: pieces[piece.pieceValue].img,
-      value: piece.pieceValue, vel: null});
+    if (piece.xVal) {
+      positions.push({xVal: piece.xVal, yVal: piece.yVal, xValPrev: null, yValPrev: null,
+        img: pieces[piece.pieceValue].img,
+        value: piece.pieceValue, vel: null});
+    }
   })
 
-  let gameInterval = setInterval( () => {
+  gameInterval = setInterval( () => {
     // Reassign Block Coordinates According To Velocities
     positions.forEach( (pos) => {
       switch (pos.vel) {
         case "up":
-          pos.yVal -= 20;
+          pos.xValPrev = pos.xVal;
+          pos.yValPrev = pos.yVal;
+          if (pos.yVal !== 20) pos.yVal -= 20;
           break;
         case "right":
-          pos.xVal += 20;
+          pos.xValPrev = pos.xVal;
+          pos.yValPrev = pos.yVal;
+          if (pos.xVal !== 400) pos.xVal += 20;
           break;
         case "down":
-          pos.yVal += 20;
+          pos.xValPrev = pos.xVal;
+          pos.yValPrev = pos.yVal;
+          if (pos.yVal !== 400) pos.yVal += 20;
           break;
         case "left":
-          pos.xVal -= 20;
+          pos.xValPrev = pos.xVal;
+          pos.yValPrev = pos.yVal;
+          if (pos.xVal !== 20) pos.xVal -= 20;
           break;
         default:
           break;
@@ -35,15 +48,12 @@ const runGame = (ctx, level) => {
     });
 
     // Redraw Gameboard According to Block Coordinates
-    ctx.fillStyle = '#75aec6';
-    ctx.fillRect(0,0,440,440);
+    // drawBoardGameplay(ctx, level);
     positions.forEach( (pos) => {
-      // ctx.fillStyle = pos.color;
-      // ctx.fillRect(pos.xVal, pos.yVal, 20, 20);
+      if (pos.xValPrev) drawWater(ctx, pos.xValPrev, pos.yValPrev);
       drawPiece(pos.img, ctx, pos.xVal, pos.yVal);
+
     });
-    ctx.fillStyle = 'black';
-    ctx.fillRect(level.goal.xVal, level.goal.yVal, 20, 20);
 
     // Set New Velocities If Next To Scary Positions
     positions.forEach( (pos1) => {
