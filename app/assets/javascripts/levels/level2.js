@@ -1,7 +1,7 @@
 const level2 = {
   preset: [
-    {xVal: 80, yVal: 40, pieceValue: 5},
-    {xVal: 100, yVal: 200, pieceValue: 4}
+    {xVal: 80, yVal: 80, pieceValue: 5},
+    {xVal: 120, yVal: 200, pieceValue: 4}
   ],
   user: {
     1: {xVal: null, yVal: null, pieceValue: 6, img: "app/assets/images/bluewhale.png"},

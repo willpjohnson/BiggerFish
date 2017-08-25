@@ -4,9 +4,10 @@ import runGame from './app/assets/javascripts/game';
 import pieces from './app/assets/javascripts/piece_objects';
 import level1 from './app/assets/javascripts/levels/level1';
 import level2 from './app/assets/javascripts/levels/level2';
+import level3 from './app/assets/javascripts/levels/level3';
 
 document.addEventListener("DOMContentLoaded", () => {
-  let level = merge({}, level2); //Establish Level
+  let level = merge({}, level3); //Establish Level
   $("#level-header").html(`Level ${level.levelNum}`); //Add Level Header to Level Div
   let selectedPieceKey = null; //Establish dummy Selected Piece
   let board = $("#game-board")[0]; //Find board on index.html

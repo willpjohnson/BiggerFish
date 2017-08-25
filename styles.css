@@ -123,10 +123,14 @@ body {
   margin: 2px;
 }
 
+#game-pieces-header {
+  text-align: center;
+  margin: 5px;
+}
+
 #game-piece-container {
   width: 400px;
   margin: 0 auto;
-  margin-top: 15px;
   border-radius: 3px;
   border: 2px solid black;
   background-color: white;

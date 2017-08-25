@@ -3,28 +3,30 @@ import { drawPiece, drawWater } from './assorted_functions';
 import pieces from './piece_objects';
 
 const runGame = (ctx, level, positions) => {
+  let victory = false;
+
   // Reestablish positions according to velocity
   positions.forEach( (pos) => {
     switch (pos.vel) {
       case "up":
         pos.xValPrev = pos.xVal;
         pos.yValPrev = pos.yVal;
-        if (pos.yVal !== 20) pos.yVal -= 20;
+        if (pos.yVal !== 40) pos.yVal -= 40;
         break;
       case "right":
         pos.xValPrev = pos.xVal;
         pos.yValPrev = pos.yVal;
-        if (pos.xVal !== 400) pos.xVal += 20;
+        if (pos.xVal !== 360) pos.xVal += 40;
         break;
       case "down":
         pos.xValPrev = pos.xVal;
         pos.yValPrev = pos.yVal;
-        if (pos.yVal !== 400) pos.yVal += 20;
+        if (pos.yVal !== 360) pos.yVal += 40;
         break;
       case "left":
         pos.xValPrev = pos.xVal;
         pos.yValPrev = pos.yVal;
-        if (pos.xVal !== 20) pos.xVal -= 20;
+        if (pos.xVal !== 40) pos.xVal -= 40;
         break;
       default:
         break;
@@ -43,13 +45,13 @@ const runGame = (ctx, level, positions) => {
     positions.forEach( (pos2) => {
       if (pos1 === pos2) return; // Skip to next iteration if pos1 is pos2
       if (pos1.value !== pos2.value - 1) return; // Skip to next iteration unless pos2 is scary to pos1
-      if ((pos1.xVal === (pos2.xVal + 20)) && (pos1.yVal === pos2.yVal)) {
+      if ((pos1.xVal === (pos2.xVal + 40)) && (pos1.yVal === pos2.yVal)) {
         pos1.vel = 'right';
-      } else if ((pos1.xVal === (pos2.xVal - 20)) && (pos1.yVal === pos2.yVal)) {
+      } else if ((pos1.xVal === (pos2.xVal - 40)) && (pos1.yVal === pos2.yVal)) {
         pos1.vel = 'left';
-      } else if ((pos1.yVal === (pos2.yVal + 20)) && (pos1.xVal === pos2.xVal)) {
+      } else if ((pos1.yVal === (pos2.yVal + 40)) && (pos1.xVal === pos2.xVal)) {
         pos1.vel = 'down';
-      } else if ((pos1.yVal === (pos2.yVal - 20)) && (pos1.xVal === pos2.xVal)) {
+      } else if ((pos1.yVal === (pos2.yVal - 40)) && (pos1.xVal === pos2.xVal)) {
         pos1.vel = 'up';
       }
     })
