@@ -32,6 +32,10 @@ body {
   background-color: #b7666a;
 }
 
+.hidden {
+  display: none;
+}
+
 /*Game*/
 #board-and-selection-div {
   /*display: flex;
@@ -40,6 +44,15 @@ body {
   position: relative;
   width: 440px;
   margin: 0 auto;
+}
+
+#board-cover {
+  position: absolute;
+  width: 440px;
+  height: 440px;
+  background-color: white;
+  border: 3px solid black;
+  border-radius: 5px;
 }
 
 #game-board {
@@ -52,11 +65,12 @@ body {
 
 #food-chain-div {
   position: absolute;
-  top: 50px;
+  top: 0px;
   left: -170px;
-  border: 2px solid black;
+  border: 3px solid black;
   border-radius: 5px;
   width: 140px;
+  height: 440px;
   text-align: center;
   background-image: url("app/assets/images/ocean.png");
 }
@@ -67,7 +81,7 @@ body {
 
 .food-chain-li {
   height: 20px;
-  margin: 0;
+  margin: 10px;
   padding: 0;
 }
 

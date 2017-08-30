@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add Click Handlers to Buttons
   $("#start-button").on("click", () => {
     $("#start-button").off("click");
-    let goal = [level.goal.xVal, level.goal.yVal];
+    let goal = [level.goal.xVal, level.goal.yVal, level.catch.value];
     let positions = [];
     level.preset.forEach( (piece) => {
       positions.push({xVal: piece.xVal, yVal: piece.yVal, xValPrev: null, yValPrev: null,
@@ -64,32 +64,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     })
     gameInterval = setInterval( () => {
-      runGame(ctx, level, positions);
+      let victory = runGame(ctx, positions, goal);
+      if (victory) {
+        clearInterval(gameInterval);
+        $("#board-cover").removeClass("hidden");
+      }
     }, 200);
   });
-  const resetButton = $("#reset-button")[0];
 
+  const resetButton = $("#reset-button")[0];
   resetButton.addEventListener("click", () => {
-    $("#start-button").on("click", () => {
-      $("#start-button").off("click");
-      let goal = [level.goal.xVal, level.goal.yVal];
-      let positions = [];
-      level.preset.forEach( (piece) => {
-        positions.push({xVal: piece.xVal, yVal: piece.yVal, xValPrev: null, yValPrev: null,
-          img: pieces[piece.pieceValue].img,
-          value: piece.pieceValue, vel: null});
-      });
-      values(level.user).forEach( (piece) => {
-        if (piece.xVal) {
-          positions.push({xVal: piece.xVal, yVal: piece.yVal, xValPrev: null, yValPrev: null,
-            img: pieces[piece.pieceValue].img,
-            value: piece.pieceValue, vel: null});
-        }
-      })
-      gameInterval = setInterval( () => {
-        runGame(ctx, level, positions);
-      }, 200);
-    });
+    // ADD CLICK HANDLER FOR START HERE??
 
     clearInterval(gameInterval);
     drawBoardInitial(ctx, level);
