@@ -9,7 +9,7 @@ const level2 = {
   },
   goal: {xVal: 320, yVal: 0},
   levelNum: 2,
-  catch: {value: 4, img: "app/assets/images/barracuda.png"}
+  catch: {value: 3, img: "app/assets/images/barracuda.png"}
 }
 
 export default level2;

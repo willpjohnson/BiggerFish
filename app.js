@@ -7,83 +7,84 @@ import level2 from './app/assets/javascripts/levels/level2';
 import level3 from './app/assets/javascripts/levels/level3';
 
 document.addEventListener("DOMContentLoaded", () => {
-  let level = merge({}, level3); //Establish Level
-  $("#level-header").html(`Level ${level.levelNum}`); //Add Level Header to Level Div
-  let selectedPieceKey = null; //Establish dummy Selected Piece
-  let board = $("#game-board")[0]; //Find board on index.html
-  let ctx = board.getContext('2d'); //Establish board ctx
-  let selectionCanvas = $("#selected-piece")[0];
-  let selectionCtx = selectionCanvas.getContext('2d');
-  drawBoardInitial(ctx, level);
-  $("#level-goal-piece").empty().append(`<img class="level-goal-piece" src=${level.catch.img}>`);
-  let gameInterval; //Establish dummy gameInterval
-
-  // Add User Pieces to User Area
-  Object.keys(level.user).forEach( (pieceKey) => {
-    let piece = level.user[pieceKey];
-    $("#game-pieces").append(`<li class="level-pieces"><img id="user-piece-${pieceKey}" src=${piece.img}></img></li>`)
+  let origLevels = [level1, level2, level3];
+  let levels = [];
+  origLevels.forEach( (level) => {
+    levels.push(merge({}, level));
   });
-  $(".level-pieces").click( (e) => {
-    e.target.classList.add("on-board");
-    selectedPieceKey = e.target.id.substring(11); // Only want the pieceKey section of the li's id
-    let piece = level.user[selectedPieceKey];
-    selectionCtx.clearRect(0,0,24,24);
-    drawPiece(pieces[piece.pieceValue].img, selectionCtx, 2, 2);
-  });
+  let levelIndex = 0;
 
-  // Add Click Handler to Board
-  board.addEventListener("click", (click) => {
-    let pos = board.getBoundingClientRect();
-    let cells = positionMover(click.x - pos.left, click.y - pos.top, ctx, level);
-    if (cells) {
-      let pieceObject = level.user[selectedPieceKey];
-      let pieceValue = pieceObject.pieceValue;
-      if (pieceObject.xVal) drawWater(ctx, pieceObject.xVal, pieceObject.yVal);
-      drawPiece(pieces[pieceValue].img, ctx, cells[0], cells[1]);
+  let levelSetup = (level) => {
+    levelIndex += 1
+    $("#level-header").html(`Level ${level.levelNum}`); //Add Level Header to Level Div
+    let selectedPieceKey = null; //Establish dummy Selected Piece
+    let board = $("#game-board")[0]; //Find board on index.html
+    let ctx = board.getContext('2d'); //Establish board ctx
+    let selectionCanvas = $("#selected-piece")[0];
+    let selectionCtx = selectionCanvas.getContext('2d');
+    drawBoardInitial(ctx, level);
+    $("#level-goal-piece").empty().append(`<img class="level-goal-piece" src=${level.catch.img}>`);
+    let gameInterval; //Establish dummy gameInterval
 
-      pieceObject.xVal = cells[0];
-      pieceObject.yVal = cells[1];
-    }
-  })
-
-  // Add Click Handlers to Buttons
-  $("#start-button").on("click", () => {
-    $("#start-button").off("click");
-    let goal = [level.goal.xVal, level.goal.yVal, level.catch.value];
-    let positions = [];
-    level.preset.forEach( (piece) => {
-      positions.push({xVal: piece.xVal, yVal: piece.yVal, xValPrev: null, yValPrev: null,
-        img: pieces[piece.pieceValue].img,
-        value: piece.pieceValue, vel: null});
+    // Add User Pieces to User Area
+    Object.keys(level.user).forEach( (pieceKey) => {
+      let piece = level.user[pieceKey];
+      $("#game-pieces").append(`<li class="level-pieces"><img id="user-piece-${pieceKey}" src=${piece.img}></img></li>`)
     });
-    values(level.user).forEach( (piece) => {
-      if (piece.xVal) {
+    $(".level-pieces").click( (e) => {
+      e.target.classList.add("on-board");
+      selectedPieceKey = e.target.id.substring(11); // Only want the pieceKey section of the li's id
+      let piece = level.user[selectedPieceKey];
+      selectionCtx.clearRect(0,0,24,24);
+      drawPiece(pieces[piece.pieceValue].img, selectionCtx, 2, 2);
+    });
+
+    // Add Click Handler to Board
+    board.addEventListener("click", (click) => {
+      let pos = board.getBoundingClientRect();
+      let cells = positionMover(click.x - pos.left, click.y - pos.top, ctx, level);
+      if (cells) {
+        let pieceObject = level.user[selectedPieceKey];
+        let pieceValue = pieceObject.pieceValue;
+        if (pieceObject.xVal) drawWater(ctx, pieceObject.xVal, pieceObject.yVal);
+        drawPiece(pieces[pieceValue].img, ctx, cells[0], cells[1]);
+
+        pieceObject.xVal = cells[0];
+        pieceObject.yVal = cells[1];
+      }
+    })
+
+    // Add Click Handlers to Buttons
+    $("#start-button").on("click", () => {
+      $("#start-button").off("click");
+      let goal = [level.goal.xVal, level.goal.yVal, level.catch.value];
+      let positions = [];
+      level.preset.forEach( (piece) => {
         positions.push({xVal: piece.xVal, yVal: piece.yVal, xValPrev: null, yValPrev: null,
           img: pieces[piece.pieceValue].img,
           value: piece.pieceValue, vel: null});
-      }
-    })
-    gameInterval = setInterval( () => {
-      let victory = runGame(ctx, positions, goal);
-      if (victory) {
-        clearInterval(gameInterval);
-        $("#board-cover").removeClass("hidden");
-      }
-    }, 200);
-  });
-
-  const resetButton = $("#reset-button")[0];
-  resetButton.addEventListener("click", () => {
-    // ADD CLICK HANDLER FOR START HERE??
-
-    clearInterval(gameInterval);
-    drawBoardInitial(ctx, level);
-    selectionCtx.clearRect(2,2,20,20);
-    $(".on-board").removeClass("on-board");
-    values(level.user).forEach( (piece) => {
-      piece.xVal = null;
-      piece.yVal = null;
+      });
+      values(level.user).forEach( (piece) => {
+        if (piece.xVal) {
+          positions.push({xVal: piece.xVal, yVal: piece.yVal, xValPrev: null, yValPrev: null,
+            img: pieces[piece.pieceValue].img,
+            value: piece.pieceValue, vel: null});
+        }
+      })
+      gameInterval = setInterval( () => {
+        let victory = runGame(ctx, positions, goal);
+        if (victory) {
+          clearInterval(gameInterval);
+          $("#board-cover").removeClass("hidden");
+        }
+      }, 200);
     });
-
+  }
+  // Establish Next Level Button Upon Level Completion
+  $("#next-level").on("click", () => {
+    levelSetup(levels[levelIndex])
+    $("#board-cover").addClass("hidden");
   });
+
+  levelSetup(levels[levelIndex]);
 });
