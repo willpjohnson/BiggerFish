@@ -18,39 +18,43 @@ document.addEventListener("DOMContentLoaded", () => {
     levelIndex += 1
     $("#level-header").html(`Level ${level.levelNum}`); //Add Level Header to Level Div
     let selectedPieceKey = null; //Establish dummy Selected Piece
-    let board = $("#game-board")[0]; //Find board on index.html
+    $("#game-board").replaceWith($('#game-board').clone());
+    $("#game-pieces").replaceWith($('#game-pieces').clone());
+    let board = $("#game-board")[0];
     let ctx = board.getContext('2d'); //Establish board ctx
-    let selectionCanvas = $("#selected-piece")[0];
-    let selectionCtx = selectionCanvas.getContext('2d');
+    let userPiecesCanvas = $("#game-pieces")[0];
+    let userPiecesCtx = userPiecesCanvas.getContext('2d');
     drawBoardInitial(ctx, level);
     $("#level-goal-piece").empty().append(`<img class="level-goal-piece" src=${level.catch.img}>`);
     let gameInterval; //Establish dummy gameInterval
 
     // Add User Pieces to User Area
+    userPiecesCtx.clearRect(0,0,44,420);
+    let xPos = 0;
     Object.keys(level.user).forEach( (pieceKey) => {
-      let piece = level.user[pieceKey];
-      $("#game-pieces").append(`<li class="level-pieces"><img id="user-piece-${pieceKey}" src=${piece.img}></img></li>`)
-    });
-    $(".level-pieces").click( (e) => {
-      e.target.classList.add("on-board");
-      selectedPieceKey = e.target.id.substring(11); // Only want the pieceKey section of the li's id
-      let piece = level.user[selectedPieceKey];
-      selectionCtx.clearRect(0,0,24,24);
-      drawPiece(pieces[piece.pieceValue].img, selectionCtx, 2, 2);
+      let piece = level.user[pieceKey]
+      drawPiece(piece.img, userPiecesCtx, xPos, 0);
+      xPos += 45;
     });
 
-    // Add Click Handler to Board
-    board.addEventListener("click", (click) => {
+    // Add Drag Handler to User Pieces
+    userPiecesCanvas.addEventListener("mousedown", (drag) => {
+      let pos = userPiecesCanvas.getBoundingClientRect();
+      selectedPieceKey = Math.ceil((drag.x - pos.left) / 45);
+    })
+
+    // Add Drop Handler to Board
+    board.addEventListener("mouseup", (drag) => {
       let pos = board.getBoundingClientRect();
-      let cells = positionMover(click.x - pos.left, click.y - pos.top, ctx, level);
-      if (cells) {
+      let cell = positionMover(drag.x - pos.left, drag.y - pos.top, ctx, level);
+      if (cell) {
         let pieceObject = level.user[selectedPieceKey];
         let pieceValue = pieceObject.pieceValue;
         if (pieceObject.xVal) drawWater(ctx, pieceObject.xVal, pieceObject.yVal);
-        drawPiece(pieces[pieceValue].img, ctx, cells[0], cells[1]);
-
-        pieceObject.xVal = cells[0];
-        pieceObject.yVal = cells[1];
+        drawPiece(pieces[pieceValue].img, ctx, cell[0], cell[1]);
+        pieceObject.xVal = cell[0];
+        pieceObject.yVal = cell[1];
+        selectedPieceKey = null;
       }
     })
 

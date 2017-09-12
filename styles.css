@@ -30,6 +30,9 @@ ul {
 
 body {
   background-color: #b7666a;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 
 .hidden {
@@ -153,17 +156,18 @@ body {
 }
 
 #game-piece-container {
-  width: 400px;
+  width: 440px;
   margin: 0 auto;
   border-radius: 3px;
   border: 2px solid black;
   background-color: white;
+  text-align: center;
 }
 
 #game-pieces {
   margin: 0 auto;
+  margin-top: 6px;
   padding: 0;
-  height: 30px;
 }
 
 .level-pieces {
