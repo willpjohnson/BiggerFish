@@ -18,7 +18,7 @@
       </div>
       <canvas id="game-board" height="440" width="440"></canvas>
       <div id="food-chain-div">
-        <h2>Food Chain</h1>
+        <h2 id="food-chain-header">Food Chain</h1>
         <ul id="food-chain-ul">
           <li class="food-chain-li"><img src="app/assets/images/bluewhale.png" alt="bluewhale"></li>
           <li class="food-chain-li"><img src="app/assets/images/food-chain-arrow.png" alt=""></li>
@@ -35,8 +35,11 @@
       </div>
       <div id="level-goal-div">
         <h2 id="level-header"></h2>
-        <h3>Catch a...</h3>
-        <div id="level-goal-piece" height="24" width="24"></div>
+        <canvas id="level-goal-piece" height="44" width="44"></canvas>
+      </div>
+      <div id="instructions-div">
+        <h4 id="instructions-header">How to Play</h4>
+        <p id="instructions-body">Get the highlighted fish above through the open gates. <br />If a fish encounters the fish directly above it in the food chain, it will flee in the other direction. <br />Drag the fish in the tank below on the map to scare the fish into motion.</p>
       </div>
     </div>
     <h2 id="game-pieces-header">Your Fish</h2>

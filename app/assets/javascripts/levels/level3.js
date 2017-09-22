@@ -7,9 +7,9 @@ const level3 = {
     {xVal: 80, yVal: 40, pieceValue: 5},
   ],
   user: {
-    1: {xVal: null, yVal: null, pieceValue: 1, img: "app/assets/images/jellyfish.png"},
-    2: {xVal: null, yVal: null, pieceValue: 5, img: "app/assets/images/greatwhite.png"},
-    3: {xVal: null, yVal: null, pieceValue: 6, img: "app/assets/images/bluewhale.png"}
+    1: {xVal: null, yVal: null, pieceValue: 1, img: "app/assets/images/jellyfish.png", name: "jellyfish"},
+    2: {xVal: null, yVal: null, pieceValue: 5, img: "app/assets/images/greatwhite.png", name: "greatwhite"},
+    3: {xVal: null, yVal: null, pieceValue: 6, img: "app/assets/images/bluewhale.png", name: "bluewhale"}
   },
   goal: {xVal: 0, yVal: 320},
   levelNum: 3,

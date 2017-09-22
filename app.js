@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let levelIndex = 0;
 
   let levelSetup = (level) => {
-    levelIndex += 1
     $("#level-header").html(`Level ${level.levelNum}`); //Add Level Header to Level Div
     let selectedPieceKey = null; //Establish dummy Selected Piece
     $("#game-board").replaceWith($('#game-board').clone());
@@ -24,8 +23,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let ctx = board.getContext('2d'); //Establish board ctx
     let userPiecesCanvas = $("#game-pieces")[0];
     let userPiecesCtx = userPiecesCanvas.getContext('2d');
+    let levelGoalCanvas = $("#level-goal-piece")[0];
+    let levelGoalCtx = levelGoalCanvas.getContext('2d');
+    levelGoalCtx.clearRect(0,0,44,44);
+    drawPiece(level.catch.img, levelGoalCtx, 2, 2);
     drawBoardInitial(ctx, level);
-    $("#level-goal-piece").empty().append(`<img class="level-goal-piece" src=${level.catch.img}>`);
+    // $("#level-goal-piece").empty().append(`<img class="level-goal-piece" src=${level.catch.img}>`);
     let gameInterval; //Establish dummy gameInterval
 
     // Add User Pieces to User Area
@@ -41,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     userPiecesCanvas.addEventListener("mousedown", (drag) => {
       let pos = userPiecesCanvas.getBoundingClientRect();
       selectedPieceKey = Math.ceil((drag.x - pos.left) / 45);
+      $("body").addClass(`cursor-${level.user[selectedPieceKey].name}`);
     })
 
     // Add Drop Handler to Board
@@ -54,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         drawPiece(pieces[pieceValue].img, ctx, cell[0], cell[1]);
         pieceObject.xVal = cell[0];
         pieceObject.yVal = cell[1];
+        $("body").removeClass(`cursor-${level.user[selectedPieceKey].name}`);
         selectedPieceKey = null;
       }
     })
@@ -83,9 +88,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }, 200);
     });
+
+    $("#reset-button").on("click", () => {
+      clearInterval(gameInterval);
+      levelSetup(levels[levelIndex])
+    });
   }
   // Establish Next Level Button Upon Level Completion
   $("#next-level").on("click", () => {
+    levelIndex += 1
     levelSetup(levels[levelIndex])
     $("#board-cover").addClass("hidden");
   });

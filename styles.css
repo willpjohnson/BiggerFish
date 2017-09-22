@@ -79,17 +79,22 @@ body {
 #food-chain-div {
   position: absolute;
   top: 0px;
-  left: -170px;
+  left: -190px;
   border: 3px solid black;
   border-radius: 5px;
-  width: 140px;
+  width: 170px;
   height: 440px;
   text-align: center;
   background-image: url("app/assets/images/ocean.png");
 }
 
-#food-chain-ul {
+#food-chain-header {
+  font-size: 30px;
+  margin-bottom: 5px;
+}
 
+#food-chain-ul {
+  margin: 0;
 }
 
 .food-chain-li {
@@ -122,25 +127,26 @@ body {
 
 #level-goal-div {
   position: absolute;
-  top: 50px;
+  top: 0px;
   right: -195px;
-  border: 2px solid black;
+  border: 3px solid black;
   border-radius: 5px;
-  height: 150px;
+  height: 180px;
   width: 170px;
   text-align: center;
   background-image: url("app/assets/images/ocean.png");
 }
 
 #level-header {
+  font-size: 30px;
   margin-bottom: 0;
 }
 
 #level-goal-piece {
   margin: 0 auto;
   margin-top: 20px;
-  height: 24px;
-  width: 24px;
+  height: 44px;
+  width: 44px;
   border-radius: 3px;
   border: 1px solid black;
   background-color: white;
@@ -148,6 +154,30 @@ body {
 
 .level-goal-piece {
   margin: 2px;
+}
+
+#instructions-div {
+  position: absolute;
+  top: 200px;
+  right: -195px;
+  border: 3px solid black;
+  border-radius: 5px;
+  height: 240px;
+  width: 170px;
+  text-align: center;
+  background-color: white;
+}
+
+#instructions-header {
+  margin: 0 auto;
+  margin-top: 15px;
+  font-size: 25px;
+}
+
+#instructions-body {
+  font-size: 15px;
+  line-height: 100%;
+  margin: 0 0px;
 }
 
 #game-pieces-header {
@@ -204,4 +234,29 @@ body {
 .button:hover {
   background-color: black;
   color: white;
+}
+
+/*CURSORS*/
+.cursor-bluewhale {
+  cursor:url(app/assets/images/bluewhale.png) 20 20,auto;
+}
+
+.cursor-greatwhite {
+  cursor:url(app/assets/images/greatwhite.png) 20 20,auto;
+}
+
+.cursor-hammerhead {
+  cursor:url(app/assets/images/hammerhead.png) 20 20,auto;
+}
+
+.cursor-barracuda {
+  cursor:url(app/assets/images/barracuda.png) 20 20,auto;
+}
+
+.cursor-piranha {
+  cursor:url(app/assets/images/piranha.png) 20 20,auto;
+}
+
+.cursor-jellyfish {
+  cursor:url(app/assets/images/jellyfish.png) 20 20,auto;
 }

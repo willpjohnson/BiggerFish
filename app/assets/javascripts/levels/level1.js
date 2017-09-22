@@ -4,7 +4,7 @@ const level1 = {
     {xVal: 120, yVal: 200, pieceValue: 4}
   ],
   user: {
-    1: {xVal: null, yVal: null, pieceValue: 6, img: "app/assets/images/bluewhale.png"}
+    1: {xVal: null, yVal: null, pieceValue: 6, img: "app/assets/images/bluewhale.png", name: "bluewhale"}
   },
   goal: {xVal: 400, yVal: 200},
   levelNum: 1,
