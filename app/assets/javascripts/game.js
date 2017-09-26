@@ -45,9 +45,9 @@ const runGame = (ctx, positions, goal) => {
     if (pos.xValPrev) {
       if (pos.xValPrev === goal[0] && pos.yValPrev === goal[1]) {
         if (pos.xValPrev === 0 || pos.xValPrev === 400) {
-          drawPiece("app/assets/images/goals/vertical.png", ctx, pos.xValPrev, pos.yValPrev);
+          drawPiece("app/assets/images/vertical.png", ctx, pos.xValPrev, pos.yValPrev);
         } else {
-          drawPiece("app/assets/images/goals/horizontal.png", ctx, pos.xValPrev, pos.yValPrev);
+          drawPiece("app/assets/images/horizontal.png", ctx, pos.xValPrev, pos.yValPrev);
         }
       } else {
         drawWater(ctx, pos.xValPrev, pos.yValPrev);

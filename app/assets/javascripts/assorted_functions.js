@@ -24,25 +24,25 @@ export const drawPiece = (src, ctx, xVal, yVal) => {
 
 export const drawBorder = (ctx, level) => {
   let top = new Image();
-  top.src = "app/assets/images/border/top.png";
+  top.src = "app/assets/images/top.png";
   let topRight = new Image();
-  topRight.src = "app/assets/images/border/top-right.png";
+  topRight.src = "app/assets/images/top-right.png";
   let right = new Image();
-  right.src = "app/assets/images/border/right.png";
+  right.src = "app/assets/images/right.png";
   let bottomRight = new Image();
-  bottomRight.src = "app/assets/images/border/bottom-right.png";
+  bottomRight.src = "app/assets/images/bottom-right.png";
   let bottom = new Image();
-  bottom.src = "app/assets/images/border/bottom.png";
+  bottom.src = "app/assets/images/bottom.png";
   let bottomLeft = new Image();
-  bottomLeft.src = "app/assets/images/border/bottom-left.png";
+  bottomLeft.src = "app/assets/images/bottom-left.png";
   let left = new Image();
-  left.src = "app/assets/images/border/left.png";
+  left.src = "app/assets/images/left.png";
   let topLeft = new Image();
-  topLeft.src = "app/assets/images/border/top-left.png";
+  topLeft.src = "app/assets/images/top-left.png";
   let xGoal = level.goal.xVal;
   let yGoal = level.goal.yVal;
   let goal = new Image();
-  goal.src = ((xGoal === 0 || xGoal === 400) ? "app/assets/images/goals/vertical.png" : "app/assets/images/goals/horizontal.png");
+  goal.src = ((xGoal === 0 || xGoal === 400) ? "app/assets/images/vertical.png" : "app/assets/images/horizontal.png");
   top.onload = () => {
     [40,80,120,160,200,240,280,320,360].forEach( (coord) => {
       if ([xGoal, yGoal] === [coord, 0]) return;
