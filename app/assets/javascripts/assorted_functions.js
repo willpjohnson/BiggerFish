@@ -45,7 +45,7 @@ export const drawBorder = (ctx, level) => {
   goal.src = ((xGoal === 0 || xGoal === 400) ? "app/assets/images/vertical.png" : "app/assets/images/horizontal.png");
   top.onload = () => {
     [40,80,120,160,200,240,280,320,360].forEach( (coord) => {
-      if ([xGoal, yGoal] === [coord, 0]) return;
+      if (xGoal === coord && yGoal === 0) return;
       ctx.drawImage(top, coord, 0);
     });
   }
@@ -54,7 +54,7 @@ export const drawBorder = (ctx, level) => {
   }
   right.onload = () => {
     [40,80,120,160,200,240,280,320,360].forEach( (coord) => {
-      if ([xGoal, yGoal] === [400, coord]) return;
+      if (xGoal === 400 && yGoal === coord) return;
       ctx.drawImage(right, 400, coord);
     });
   }
@@ -63,7 +63,7 @@ export const drawBorder = (ctx, level) => {
   }
   bottom.onload = () => {
     [40,80,120,160,200,240,280,320,360].forEach( (coord) => {
-      if ([xGoal, yGoal] === [coord, 400]) return;
+      if (xGoal === coord && yGoal === 400) return;
       ctx.drawImage(bottom, coord, 400);
     });
   }
@@ -72,7 +72,7 @@ export const drawBorder = (ctx, level) => {
   }
   left.onload = () => {
     [40,80,120,160,200,240,280,320,360].forEach( (coord) => {
-      if ([xGoal, yGoal] === [0, coord]) return;
+      if (xGoal === 0 && yGoal === coord) return;
       ctx.drawImage(left, 0, coord);
     });
   }
